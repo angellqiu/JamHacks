@@ -2,7 +2,7 @@ from tkinter import *
 from random import *
 
 def main():
-    global root, s, jumpingjacks1, jumpingjacks2
+    global root, s, countdown_text
     root = Tk()
     s = Canvas(root, width=800, height=600, background="white")
     s.pack()
@@ -56,26 +56,28 @@ def main():
 
     moveOne(10)
             
+    #Function to update the timer
+    countdown_text = s.create_text(350, 55, text="", fill="black", font="Arial 16")
 
-    # Function to update the timer
-    # def update_timer(secs, mins):
-    #     if secs > 0 or mins > 0:
-    #         timeformat = '{:02d}:{:02d}'.format(mins, secs)
-    #         countdown = s.create_text(350, 55, text=timeformat, fill="black", font="Arial 16")
-    #         # Decrement seconds and minutes
-    #         if secs == 0:
-    #             mins -= 1
-    #             secs = 59
-    #         else:
-    #             secs -= 1
-    #         # Schedule the next update after 1 second
-    #         root.after(1000, update_timer, secs, mins)
-    #     else:
-    #         # Timer has reached 0:00
-    #         s.create_text(350, 55, text="00:00", fill="black", font="Arial 16")
+    def timer(secs, mins):
+            global countdown_text
+            if secs >= 0 or mins >= 0:
+                format = '{:02d}:{:02d}'.format(mins, secs)
+                s.itemconfig(countdown_text, text=format)
+                if secs == 0 and mins > 0:
+                    mins -= 1
+                    secs = 59
+                else:
+                    secs -= 1
+                # Next update 1 sec later
+                if secs >= 0 or mins >= 0:
+                    root.after(1000, lambda: timer(secs, mins))
+            else:
+                # Timer end
+                s.itemconfig(countdown_text, text="00:00")
 
-    # # Start the timer with 20 seconds
-    # update_timer(20, 0)
+    timer(20, 0)
+
 
 
     # GRIDLINES
