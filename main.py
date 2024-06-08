@@ -80,7 +80,7 @@ def main():
 
 
     # GRIDLINES
-    for x in range(50, 850, 25):
+    for x in range(50, 850, 24):
         s.create_line(x, 40, x, 650, fill="black")
         s.create_text(x, 20, text=str(x), fill="black", font="Arial 5")
         
