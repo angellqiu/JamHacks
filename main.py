@@ -70,7 +70,6 @@ def main():
     #             secs -= 1
     #         # Schedule the next update after 1 second
     #         root.after(1000, update_timer, secs, mins)
-            
     #     else:
     #         # Timer has reached 0:00
     #         s.create_text(350, 55, text="00:00", fill="black", font="Arial 16")
