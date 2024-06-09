@@ -1,5 +1,14 @@
 from tkinter import *
 from random import *
+from pip._vendor import requests
+import json
+
+apiKey = "77fc40e265ed864dadd49df59b5c20bf"
+city = "Waterloo"
+url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric"
+
+data = requests.get(url).json()
+result = data['weather'][0]['description']
 
 def main():
     global root, s, countdown_text
@@ -101,6 +110,24 @@ def main():
         s.delete(text)
         s.delete(box)
 
+    def weather():
+        message = "Waterloo's current forcast is: " + result
+        s.create_rectangle(200,175,600,250, fill = "pink", outline = "black", width = 6)
+        s.create_text(400, 212.5, text=message, fill="black", font="Arial 10")
+
+    def decision():
+        message = "Waterloo's current forcast is: " + result
+        banner = s.create_rectangle(200,175,600,250, fill = "pink", outline = "black", width = 6)
+        forcast = s.create_text(400, 212.5, text=message, fill="black", font="Arial 10")
+    
+    goodConditions = ["clear sky", "few clouds", "scattered clouds", "broken clouds", "mist" ]
+    def walk():
+        s.create_rectangle(200,175,600,250, fill = "pink", outline = "black", width = 6)
+        if result in goodConditions:
+            s.create_text(400, 212.5, text="It's a good day to go on a walk! Or a jog... whatever floats your boat!", fill="black", font="Arial 10")
+        else:
+            s.create_text(400, 212.5, text="Hmm, it's unsuitable weather to go outside. Consider some yoga or zen today!", fill="black", font="Arial 10")
+
     def pigAnimation():
         workoutTime = randint(15,30)*2
         timer(workoutTime, 0)
@@ -108,6 +135,9 @@ def main():
         root.after((workoutTime)*1000, lambda: drawImage())
         root.after((workoutTime+2)*1000, lambda: praise())
         root.after((workoutTime+7)*1000, lambda: deleteText(encourage, box))
+        root.after((workoutTime+10)*1000, lambda: weather())
+
+
     pigAnimation()    
 
 
@@ -115,14 +145,14 @@ def main():
 
 
 
-    # GRIDLINES
-    for x in range(50, 850, 25):
-        s.create_line(x, 40, x, 650, fill="black")
-        s.create_text(x, 20, text=str(x), fill="black", font="Arial 5")
+    # # GRIDLINES
+    # for x in range(50, 850, 25):
+    #     s.create_line(x, 40, x, 650, fill="black")
+    #     s.create_text(x, 20, text=str(x), fill="black", font="Arial 5")
         
-    for y in range(50, 650, 25):
-        s.create_line(40, y, 850, y, fill="black")
-        s.create_text(20, y, text=str(y), fill="black", font="Arial 6")
+    # for y in range(50, 650, 25):
+    #     s.create_line(40, y, 850, y, fill="black")
+    #     s.create_text(20, y, text=str(y), fill="black", font="Arial 6")
 
     root.mainloop()
 
