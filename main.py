@@ -19,12 +19,12 @@ def main():
     squat2 = PhotoImage(file="squat2.png")
     lobby = PhotoImage(file="mainpage.png")
 
-    def drawIntro():
-        s.create_image(400, 300, image=lobby)
+    # def drawIntro():
+    #     s.create_image(400, 300, image=lobby)
     
-    # root.bind("<Button-1>", startScreenClick)
-    # def startScreenClick(event):
-    drawIntro()
+    # # root.bind("<Button-1>", startScreenClick)
+    # # def startScreenClick(event):
+    # drawIntro()
 
 
             
@@ -86,11 +86,31 @@ def main():
             # Timer end
             s.itemconfig(countdown_text, text="00:00")
 
-    # Start the timer with 20 seconds
-    workoutTime = randint(15,30)*2
-    timer(workoutTime, 0)
-    moveOne(workoutTime/2)
+    def drawImage():
+        s.create_image(400, 400, image=jumpingjacks1)
     
+    feedback = ["Whewhhh, good work!", "LOOK AT YOU GO!", "So proud of you!", "Feelin a little sore?", "Feels nice doesn't it?", "YIPEEEE", "Refreshed yet?", "WOOHOOOOOO!"]
+    dialogue = choice(feedback)
+
+    def praise():
+        global box, encourage
+        box = s.create_oval(575,175,725,250, fill = "white", outline = "pink", width = 3)
+        encourage = s.create_text(650, 212.5, text=dialogue, fill="black", font="Arial 10")
+    
+    def deleteText(text, box):
+        s.delete(text)
+        s.delete(box)
+
+    def pigAnimation():
+        workoutTime = randint(15,30)*2
+        timer(workoutTime, 0)
+        moveOne(workoutTime/2)
+        root.after((workoutTime)*1000, lambda: drawImage())
+        root.after((workoutTime+2)*1000, lambda: praise())
+        root.after((workoutTime+7)*1000, lambda: deleteText(encourage, box))
+    pigAnimation()    
+
+
 
 
 
