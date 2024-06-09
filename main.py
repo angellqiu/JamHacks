@@ -28,39 +28,29 @@ def main():
     squat2 = PhotoImage(file="squat2.png")
     lobby = PhotoImage(file="mainpage.png")
 
-    # def drawIntro():
-    #     s.create_image(400, 300, image=lobby)
-    
-    # # root.bind("<Button-1>", startScreenClick)
-    # # def startScreenClick(event):
-    # drawIntro()
+    def ifMouseinButton(event):
+        xMouse = event.x
+        yMouse = event.y
+        if 250 <= xMouse <= 550 and 425 <= yMouse <= 510:
+            mainscreen()
 
+    def mainscreen():
+        s.delete("all")  # Clear all items on the canvas
+        s.create_image(400, 300, image=background)
+        # Timer clock
+        s.create_rectangle(250, 30, 450, 80, fill="white", outline="black", width=3)
+        global countdown_text
+        countdown_text = s.create_text(350, 55, text="", fill="black", font="Arial 16")
 
-            
-
-    relations = {
-        "jumpingjacks1": jumpingjacks1,
-        "jumpingjacks2": jumpingjacks2,
-        "pushup1": pushup1,
-        "pushup2": pushup2,
-        "sidestretch1": sidestretch1,
-        "sidestretch2": sidestretch2,
-        "squat1": squat1,
-        "squat2": squat2,
-    }
-
-
-    s.create_image(400, 300, image=background)
-    
-    #timer clock
-    s.create_rectangle(250, 30, 450, 80, fill="white", outline="black", width=3)
-
-    options = ["jumpingjacks", "pushup", "sidestretch", "squat"]
-    exercise = choice(options)
-
+        # Start the timer with a random duration between 30 and 60 seconds
+        workoutTime = randint(15, 30) * 2
+        timer(workoutTime, 0)
+        moveOne(workoutTime // 2)
 
     def deleteImage(image):
         s.delete(image)
+            
+
 
     def moveOne(repeat):
         if repeat == 0:
@@ -74,9 +64,6 @@ def main():
         root.after(1000, lambda: deleteImage(jump2))
         root.after(1000, lambda: moveOne(repeat-1))
 
-            
-    #Function to update the timer
-    countdown_text = s.create_text(350, 55, text="", fill="black", font="Arial 16")
 
     def timer(secs, mins):
         global countdown_text
