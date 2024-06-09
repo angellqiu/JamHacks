@@ -73,7 +73,7 @@ def main():
         
         goodConditions = ["clear sky", "few clouds", "scattered clouds", "broken clouds", "mist" ]
         def walk():
-            s.create_rectangle(200,175,600,250, fill = "pink", outline = "black", width = 6)
+            s.create_rectangle(100,175,700,250, fill = "pink", outline = "black", width = 6)
             if result in goodConditions:
                 s.create_text(400, 212.5, text="It's a good day to go on a walk! Or a jog... whatever floats your boat!", fill="black", font="Arial 10")
             else:
