@@ -2,6 +2,13 @@ from tkinter import *
 from random import *
 from pip._vendor import requests
 import json
+import pygame
+
+pygame.mixer.init()
+pygame.mixer.music.load("song.mp3")
+pygame.mixer.music.set_volume(0.7)
+pygame.mixer.music.play()
+
 
 apiKey = "77fc40e265ed864dadd49df59b5c20bf"
 city = "Waterloo"
